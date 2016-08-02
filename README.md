@@ -60,24 +60,24 @@ Config file, mostly for Pandoc.
 
 ```json
 {
-  "title": "Lorem ipsum",           # Document title.
-  "second_title": "Dolor sit amet", # Document subtitle.
-  "lang": "english",                # Document language, "russian" or "english."
-                                    # If not specified, "russian" is used.
-  "company": "restream",            # Your company name, "undev" or "restream".
-                                    # Shown at the bottom of each page.
-  "year": "2016",                   # Document publication year.
-                                    # Shown at the bottom of each page.
-  "title_page": "true",             # Add title page or not.
-  "toc": "true",                    # Add table of contents or not.
-  "tof": "true",                    # Unknown
-  "template": "basic",              # LaTeX template to use. Do NOT add ".tex"!
-  "version": "1.0",                 # Document version. If not specified
-                                    # or set to "auto," the version is generated
-                                    # automatically based on git tag and revision number.
-  "date":"true",                    # Add date to the title page.
-  "type": "",                       # Unknown
-  "alt_doc_type": "",               # Unknown
+  "title": "Lorem ipsum",           // Document title.
+  "second_title": "Dolor sit amet", // Document subtitle.
+  "lang": "english",                // Document language, "russian" or "english."
+                                    // If not specified, "russian" is used.
+  "company": "restream",            // Your company name, "undev" or "restream".
+                                    // Shown at the bottom of each page.
+  "year": "2016",                   // Document publication year.
+                                    // Shown at the bottom of each page.
+  "title_page": "true",             // Add title page or not.
+  "toc": "true",                    // Add table of contents or not.
+  "tof": "true",                    // Unknown
+  "template": "basic",              // LaTeX template to use. Do NOT add ".tex"!
+  "version": "1.0",                 // Document version. If not specified
+                                    // or set to "auto," the version is generated
+                                    // automatically based on git tag and revision number.
+  "date":"true",                    // Add date to the title page.
+  "type": "",                       // Unknown
+  "alt_doc_type": "",               // Unknown
 }
 ```
 
