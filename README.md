@@ -16,7 +16,7 @@ $ nimble install foliant
 
 # Usage
 
-```shell
+```
 Usage: foliant (build|upload) OPTIONS ARGUMENT
 
   build
