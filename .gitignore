@@ -1,6 +1,5 @@
 nimcache/
 tmp/
 .vscode/
-*.docx
 *.pdf
 client_secret*.json
