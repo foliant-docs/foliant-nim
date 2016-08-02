@@ -58,7 +58,7 @@ you this file as well. It's not stored in the GitHub repo for security reasons.
 
 Config file, mostly for Pandoc.
 
-```json
+```js
 {
   "title": "Lorem ipsum",           // Document title.
   "second_title": "Dolor sit amet", // Document subtitle.
