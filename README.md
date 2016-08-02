@@ -3,6 +3,17 @@
 **foliant** is a documentation generator that builds PDF, Docx, and TeX
 documents from Markdown source.
 
+# Get It
+
+- Download the compiled binary from this repo's `bin` directory and use it
+  right away.
+
+- If you have Nim and Nimble installed, install foliant with Nimble:
+
+```shell
+$ nimble install foliant
+```
+
 # Project Layout
 
 For foliant to be able to build your docs, your project must conform
