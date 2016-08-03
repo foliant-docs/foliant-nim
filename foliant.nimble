@@ -7,7 +7,13 @@ license       = "MIT"
 
 bin = @["foliant"]
 srcDir = "src"
-binDir = "bin"
+
+when defined(Windows):
+  binDir = "bin/windows"
+elif defined(MacOSX):
+  binDir = "bin/mac"
+elif defined(Linux):
+  binDir = "bin/linux"
 
 # Dependencies
 
