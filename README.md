@@ -17,7 +17,7 @@ $ nimble install foliant
 # Usage
 
 ```
-Usage: foliant (build|upload) OPTIONS ARGUMENT
+Usage: foliant (build|upload) OPTIONS ARGUMENTS
 
   build
   -----
@@ -25,16 +25,19 @@ Usage: foliant (build|upload) OPTIONS ARGUMENT
 Build PDF, Docx, TeX, or Markdown file from Markdown source. Special target
 "gdrive" is a shortcut for building Docx and uploading it to Google Drive.
 
-Usage: foliant build --target=(pdf|docx|tex|markdown|gdrive) /project/path
+Usage: foliant build --target=(pdf|docx|tex|markdown|gdrive) [--path=/project/path]
 
-You can shorten "--target"" to "-t" and targetтАФto a single character:
+If no path is specified, the current directory is used.
 
-  $ foliant -t=p /project/path
+You can shorten "--target"" to "-t," "--path" to "-p," and target—to a single
+character:
+
+  $ foliant -t=p -p=/project/path
 
 Using ":" instead of "=" is allowed. Using space IS NOT:
 
-  $ foliant -t:d /project/path # OK
-  $ foliant -t d /project/path # FAIL
+  $ foliant -t:d -p:/project/path # OK
+  $ foliant -t d -p /project/path # FAIL
 
   upload
   ------
