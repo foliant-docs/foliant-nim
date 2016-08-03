@@ -47,13 +47,13 @@ Using ":" instead of "=" is allowed. Using space IS NOT:
 
 Usage: foliant (build|upload) OPTIONS ARGUMENTS
 
-  build
-  -----
-  $#
+build
+-----
+$#
 
-  upload
-  ------
-  $#""" % [buildUsage, uploadUsage]
+upload
+------
+$#""" % [buildUsage, uploadUsage]
 
 commandline:
   subcommand build, "build":

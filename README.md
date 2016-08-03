@@ -19,8 +19,8 @@ $ nimble install foliant
 ```
 Usage: foliant (build|upload) OPTIONS ARGUMENTS
 
-  build
-  -----
+build
+-----
 
 Build PDF, Docx, TeX, or Markdown file from Markdown source. Special target
 "gdrive" is a shortcut for building Docx and uploading it to Google Drive.
@@ -39,8 +39,8 @@ Using ":" instead of "=" is allowed. Using space IS NOT:
   $ foliant -t:d -p:/project/path # OK
   $ foliant -t d -p /project/path # FAIL
 
-  upload
-  ------
+upload
+------
 
 Upload Docx file to Google Drive. To use the Google Drive API, you need
 a web app OAuth 2.0 client secret from Google API Console. You probably
