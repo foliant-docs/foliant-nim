@@ -5,7 +5,7 @@ import osproc, strutils
 proc getVersion*(): string =
   ## Generate document version based on git tag and number of revisions.
 
-  var components: seq[string]
+  var components: seq[string] = @[]
 
   let
     gitDescribeCommand = "git describe --abbrev=0"
