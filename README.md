@@ -66,50 +66,24 @@ For foliant to be able to build your docs, your project must conform
 to a particular layout:
 
 ```
-projectRoot/
-  references/
-    ref.docx
-  sources/
-    images/
-      image1.png
-      anotherImage.jpg
-    chapter1.md
-    chapter2.md
-    introduction.md
-  templates/
-    basic.tex
-    anotherTemplate.tex
-  client_secret*.json
-  config.json
-  main.yaml
+.
+│   config.json
+│   main.yaml
+│
+├───references
+│       ref.docx
+│
+├───sources
+│   │   chapter1.md
+│   │   introduction.md
+│   │
+│   └───images
+│           Lenna.png
+│
+└───templates
+        basic.tex
+        restream_logo.png
 ```
-## references/
-
-Directory with the Docx reference file. It **must** be called `ref.docx`.
-
-## sources/
-
-Directory with the Markdown source file of your project.
-
-## images/
-
-Images that can be embedded in the source files. When embedding an image,
-**do not** prepend it with `images/`:
-
-```markdown
-![](image1.png)        # RIGHT
-![](images/image1.png) # WRONG
-```
-## templates/
-
-LaTeX templates used to build PDF, Docx, and TeX files. The exact template
-to use is configured in `config.json`.
-
-## client_secret*.json
-
-Client secret file obtained from Google API Console. You probably don't need
-to obtain it yourself. The person who told you to use foliant should provide
-you this file as well. It's not stored in the GitHub repo for security reasons.
 
 ## config.json
 
@@ -153,3 +127,39 @@ chapters:
 - chapter2
 ...
 ```
+
+## references/
+
+Directory with the Docx reference file. It **must** be called `ref.docx`.
+
+## sources/
+
+Directory with the Markdown source file of your project.
+
+## images/
+
+Images that can be embedded in the source files. When embedding an image,
+**do not** prepend it with `images/`:
+
+```markdown
+![](image1.png)        # RIGHT
+![](images/image1.png) # WRONG
+```
+## templates/
+
+LaTeX templates used to build PDF, Docx, and TeX files. The template
+to use in build is configured in `config.json`.
+
+# Uploading to Google Drive
+
+To upload a Docx file to Google Drive as a Google Docs document, use
+`foliant upload` command or `foliant build --target=gdrive`, which is
+a shortcut for generating a Docx file and uploading it.
+
+For the upload to work, you need to have a so called *client secret* file.
+By default, foliant tries to find it in the directory it was invoked in,
+but you can specify the path to it with `--secret` option.
+
+Client secret file is obtained through Google API Console. You probably don't need
+to obtain it yourself. The person who told you to use foliant should provide
+you this file as well.
