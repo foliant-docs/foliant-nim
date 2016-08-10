@@ -1,81 +1,41 @@
 ## CLI for foliant.
 
 import strutils
-import commandeer
+import docopt
 import foliantpkg/builder, foliantpkg/uploader
 
-const
-  buildUsage = """
+const doc = """
+Foliant: Markdown to PDF, Docx, and LaTeX generator powered by Pandoc.
 
-Build PDF, Docx, TeX, or Markdown file from Markdown source. Special target
-"gdrive" is a shortcut for building Docx and uploading it to Google Drive.
+Usage:
+  foliant (build | make) <target> [--path=<project-path>]
+  foliant (upload | up) <document> [--secret=<client_secret*.json>]
+  foliant (-h | --help)
+  foliant --version
 
-Usage: foliant build (pdf|docx|tex|markdown|gdrive) [--path=/project/path]
+Options:
+  -h --help                         Show this screen.
+  -v --version                      Show version.
+  -p --path=<project-path>          Path to your project [default: .].
+  -s --secret=<client_secret*.json> Path to Google app's client secret file.
+"""
 
-If no path is specified, the current directory is used.
+let args = docopt(doc, version = "Foliant 0.1.3")
 
-You can shorten "--path" to "-p," and target to a single character:
+if args["build"] or args["make"]:
+  let
+    targetFormat = $args["<target>"]
+    projectPath = $args["--path"]
+    outputFile = projectPath.build(targetFormat)
 
-  $ foliant build p -p=/project/path
-
-Using ":" instead of "=" is allowed. Using space IS NOT:
-
-  $ foliant build d -p:/project/path # OK
-  $ foliant build d -p /project/path # FAIL"""
-
-  uploadUsage = """
-
-Upload Docx file to Google Drive. To use the Google Drive API, you need
-a web app OAuth 2.0 client secret from Google API Console. You probably
-don't have to create the app yourself. Instead, you should be provided
-with a client_secret_*.json file, which you should put in foliant's
-working directory or point explicitly with "--secret."
-
-Usage: foliant upload /project/to/yourdocument.docx [--secret=/path/to/client_secret_*.json]
-
-You can shorten "--secret"" to "-s":
-
-  $ foliant -s=/path/to/client_secret_*.json /project/to/yourdocument.docx
-
-Using ":" instead of "=" is allowed. Using space IS NOT:
-
-  $ foliant -s:/path/to/client_secret_*.json /project/to/yourdocument.docx # OK
-  $ foliant -s /path/to/client_secret_*.json /project/to/yourdocument.docx # FAIL"""
-
-  generalUsage = """
-
-Usage: foliant (build|upload) OPTIONS ARGUMENTS
-
-build
------
-$#
-
-upload
-------
-$#""" % [buildUsage, uploadUsage]
-
-commandline:
-  subcommand build, "build":
-    argument targetFormat, string
-    option projectPath, string, "path", "p", "."
-    exitoption "help", "h", buildUsage
-
-  subcommand upload, "upload":
-    argument docxPath, string
-    option clientSecretPath, string, "secret", "s", nil
-    exitoption "help", "h", uploadUsage
-
-  exitoption "help", "h", generalUsage
-
-if build:
-  let outputFile = projectPath.build(targetFormat)
   echo "----"
   quit "Result: " & outputFile
 
-elif upload:
-  let gdocLink = upload(docxPath, clientSecretPath)
+elif args["upload"] or args["up"]:
+  let
+    documentPath = $args["<document>"]
+    clientSecretPath = $args["--secret"]
+    gdocLink = documentPath.upload(clientSecretPath)
+
   echo "----"
   quit "Link: " & gdocLink
-
-else:
-  quit generalUsage
