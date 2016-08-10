@@ -10,19 +10,18 @@ const
 Build PDF, Docx, TeX, or Markdown file from Markdown source. Special target
 "gdrive" is a shortcut for building Docx and uploading it to Google Drive.
 
-Usage: foliant build --target=(pdf|docx|tex|markdown|gdrive) [--path=/project/path]
+Usage: foliant build (pdf|docx|tex|markdown|gdrive) [--path=/project/path]
 
 If no path is specified, the current directory is used.
 
-You can shorten "--target"" to "-t," "--path" to "-p," and target—to a single
-character:
+You can shorten "--path" to "-p," and target to a single character:
 
-  $ foliant -t=p -p=/project/path
+  $ foliant build p -p=/project/path
 
 Using ":" instead of "=" is allowed. Using space IS NOT:
 
-  $ foliant -t:d -p:/project/path # OK
-  $ foliant -t d -p /project/path # FAIL"""
+  $ foliant build d -p:/project/path # OK
+  $ foliant build d -p /project/path # FAIL"""
 
   uploadUsage = """
 
@@ -57,8 +56,8 @@ $#""" % [buildUsage, uploadUsage]
 
 commandline:
   subcommand build, "build":
+    argument targetFormat, string
     option projectPath, string, "path", "p", "."
-    option targetFormat, string, "target", "t"
     exitoption "help", "h", buildUsage
 
   subcommand upload, "upload":
