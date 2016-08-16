@@ -69,7 +69,7 @@ proc build*(projectPath, targetFormat: string): string =
 
   of 'm':
     outputFile = outputTitle & ".md"
-    (tmpPath/srcFile).copyFile outputTitle & ".md"
+    (tmpPath/srcFile).copyFile outputFile
 
   of 'g':
     outputFile = outputTitle & ".docx"
