@@ -5,6 +5,7 @@ Foliant
 **Foliant** is a documentation generator that builds PDF, Docx, and TeX
 documents from Markdown source.
 
+
 ******
 Get It
 ******
@@ -17,6 +18,7 @@ Get It
   .. code-block:: shell
 
     $ nimble install foliant
+
 
 *****
 Usage
@@ -37,6 +39,7 @@ Usage
     -v --version                      Show version.
     -p --path=<project-path>          Path to your project [default: .].
     -s --secret=<client_secret*.json> Path to Google app's client secret file.
+
 
 ``build``, ``make``
 ===================
@@ -184,7 +187,7 @@ To upload a Docx file to Google Drive as a Google document, use
 a shortcut for generating a Docx file and uploading it.
 
 For the upload to work, you need to have a so called *client secret* file.
-By default, foliant tries to find it in the directory it was invoked in,
+By default, Foliant tries to find it in the directory it was invoked in,
 but you can specify the path to it with `--secret` option.
 
 Client secret file is obtained through Google API Console. You probably don't
