@@ -12,3 +12,7 @@ Initial release.
 
 - Commandline interface for `build` changed: target format is now a mandatory
   argument, ``--target`` option is deprecated.
+
+# 0.1.4
+
+- Pandoc filters can be specified in config.json.
