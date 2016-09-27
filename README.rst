@@ -194,3 +194,19 @@ but you can specify the path to it with `--secret` option.
 Client secret file is obtained through Google API Console. You probably don't
 need to obtain it yourself. The person who told you to use Foliant should
 provide you this file as well.
+
+
+***************
+Troubleshooting
+***************
+
+
+I'm getting ``could not import: pcre_free_study`` when running Foliant on macOS
+===============================================================================
+
+Install a newer version of PCRE:
+
+.. code-block:: shell
+
+  $ brew install pcre  
+
