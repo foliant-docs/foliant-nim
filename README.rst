@@ -11,7 +11,11 @@ Get It
 ******
 
 - Download the compiled binary from this repo's `bin` directory and use it
-  right away.
+  right away:
+
+  .. code-block:: shell
+
+    $ ./foliant
 
 - If you have Nim and Nimble installed, install foliant with Nimble:
 
@@ -201,12 +205,21 @@ Troubleshooting
 ***************
 
 
-I'm getting ``could not import: pcre_free_study`` when running Foliant on macOS
-===============================================================================
+macOS: ``could not import: pcre_free_study`` when executing the binary
+======================================================================
 
 Install a newer version of PCRE:
 
 .. code-block:: shell
 
-  $ brew install pcre  
+  $ brew install pcre
 
+
+macOS: ``permission denied`` when executing the binary
+======================================================
+
+Make the file executable:
+
+.. code-block:: shell
+
+  $ chmod +x foliant
