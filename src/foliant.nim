@@ -20,7 +20,7 @@ Options:
   -s --secret=<client_secret*.json> Path to Google app's client secret file.
 """
 
-let args = docopt(doc, version = "Foliant 0.1.5")
+let args = docopt(doc, version = "Foliant 0.1.6")
 
 if args["build"] or args["make"]:
   let
@@ -34,8 +34,10 @@ if args["build"] or args["make"]:
 elif args["upload"] or args["up"]:
   let
     documentPath = $args["<document>"]
-    clientSecretPath = $args["--secret"]
-    gdocLink = documentPath.upload(clientSecretPath)
+    clientSecretPath = args["--secret"]
+    gdocLink =
+      if clientSecretPath.kind == vkNone: documentPath.upload(nil)
+      else: documentPath.upload($clientSecretPath)
 
   echo "----"
   quit "Link: " & gdocLink

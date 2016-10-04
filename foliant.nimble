@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.5"
+version       = "0.1.6"
 author        = "Konstantin Molchanov"
 description   = "Documentation generator that produces pdf and docx from Markdown. Uses Pandoc and LaTeX behind the scenes."
 license       = "MIT"
@@ -17,4 +17,5 @@ elif defined(Linux):
 
 # Dependencies
 
-requires "nim >= 0.14.2", "docopt", "yaml"
+requires "nim >= 0.15.0", "docopt#head", "yaml"
+

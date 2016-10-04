@@ -44,14 +44,14 @@ proc build*(projectPath, targetFormat: string): string =
     tmpPath = "tmp"
     srcFile = "output.md"
 
-  var outputFile, pandocCommand: string
+  var outputFile: string
 
   removeDir(tmpPath)
   createDir(tmpPath)
 
   collectSource(projectPath, tmpPath, srcFile)
 
-  case targetFormat[0].toLower
+  case targetFormat[0].toLowerAscii
   of 'p':
     outputFile = outputTitle & ".pdf"
     srcFile.toPdf(outputFile, tmpPath, cfg)

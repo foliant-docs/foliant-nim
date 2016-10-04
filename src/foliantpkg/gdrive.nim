@@ -59,7 +59,8 @@ proc getAccessToken*(clientSecretPath: string): string =
       "redirect_uri": creds["redirect_uris"][0].getStr,
       "grant_type": "authorization_code"
     })
-    resp = postContent(creds["token_uri"].getStr, multipart=data)
+    httpClient = newHttpClient()
+    resp = httpClient.postContent(creds["token_uri"].getStr, multipart=data)
 
   return parseJson(resp)["access_token"].getStr
 
@@ -73,17 +74,21 @@ proc getUploadId(accessToken: string, contentLength: int,
 
   let
     url = apiFileUploadEndpoint & "?uploadType=resumable"
-    headers = [
-      "Authorization: Bearer " & accessToken,
-      "Content-Type: application/json; charset=UTF-8",
-      "X-Upload-Content-Type: application/msword",
-      "X-Upload-Content-Length: " & $contentLength
-    ]
+    headers = {
+      "Authorization": "Bearer " & accessToken,
+      "Content-Type": "application/json; charset=UTF-8",
+      "X-Upload-Content-Type": "application/msword",
+      "X-Upload-Content-Length":  $contentLength
+    }.newHttpHeaders
     body = $(%{
       "name": %name,
       "mimeType": %"application/vnd.google-apps.document"
     })
-    resp = post(url, extraHeaders=headers.join("\c\L") & "\c\L", body=body)
+    httpClient = newHttpClient()
+
+  httpClient.headers = headers
+
+  let resp = httpClient.post(url, body=body)
 
   return resp.headers["X-GUploader-UploadID"]
 
@@ -94,14 +99,17 @@ proc uploadContent(docxContent, uploadId: string): string =
     url = apiFileUploadEndpoint &
       "?uploadType=resumable" &
       "&upload_id=" & uploadId
-    headers = [
-      "Content-Type: application/msword",
-      "Content-Length: " & $docxContent.len
-    ]
-    resp = request(
+    headers = {
+      "Content-Type": "application/msword",
+      "Content-Length": $docxContent.len
+    }.newHttpHeaders
+    httpClient = newHttpClient()
+
+  httpClient.headers = headers
+
+  let resp = httpClient.request(
       url,
-      httpPut,
-      extraHeaders=headers.join("\c\L") & "\c\L",
+      HttpPut,
       body=docxContent
     )
 
@@ -112,8 +120,12 @@ proc getWebViewLink(gdocId, accessToken: string): string =
 
   let
     url = apiFileEndpoint & "/" & gdocId & "?fields=webViewLink"
-    header = "Authorization: Bearer $#\c\L" % accessToken
-    resp = getContent(url, extraHeaders=header)
+    headers = {"Authorization": "Bearer " & accessToken}.newHttpHeaders
+    httpClient = newHttpClient()
+
+  httpClient.headers = headers
+
+  let resp = httpClient.getContent(url)
 
   return parseJson(resp)["webViewLink"].getStr
 
