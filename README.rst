@@ -200,10 +200,41 @@ need to obtain it yourself. The person who told you to use Foliant should
 provide you this file as well.
 
 
+**************************
+Embedding seqdiag Diagrams
+**************************
+
+Foliant lets you embed `seqdiag <http://blockdiag.com/en/seqdiag/>`__
+diagrams.
+
+In order to use thie feature install seqdiag from PyPI:
+
+.. code-block:: shell
+
+  $ pip install seqdiag
+
+To embed a diagram, put its definition in a fenced code block:
+
+.. code-block:: markdown
+
+  ```seqdiag Optional single-line caption.
+  seqdiag {
+  browser  -> webserver [label = "GET /index.html"];
+  browser <-- webserver;
+  browser  -> webserver [label = "POST /blog/comment"];
+              webserver  -> database [label = "INSERT comment"];
+              webserver <-- database;
+  browser <-- webserver;
+  }
+  ```
+
+This is transformed into ``![Optional single-line caption. (diagrams/0.png)``,
+where ``diagrams/0.png`` is an image generated from the diagram definition.
+
+
 ***************
 Troubleshooting
 ***************
-
 
 macOS: ``could not import: pcre_free_study`` when executing the binary
 ======================================================================
