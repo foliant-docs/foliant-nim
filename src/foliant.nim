@@ -20,7 +20,7 @@ Options:
   -s --secret=<client_secret*.json> Path to Google app's client secret file.
 """
 
-let args = docopt(doc, version = "Foliant 0.1.6")
+let args = docopt(doc, version = "Foliant 0.1.7")
 
 if args["build"] or args["make"]:
   let
