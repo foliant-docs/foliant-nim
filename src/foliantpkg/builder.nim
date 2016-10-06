@@ -1,10 +1,45 @@
 ## Document builder for foliant. Implements "build" subcommand.
 
-import os, osproc, strutils, json, yaml
+import os, osproc, strutils, json, yaml, re
 import pandoc, gitutils
 import uploader
 
-proc collectSource*(projectPath, targetDir, srcFile: string) =
+proc processDiagrams(srcDir, srcFile: string) =
+  ##[
+    Find seqdiag code blocks, feed their content to seqdiag tool, and replace
+    them with image references.
+  ]##
+
+  stdout.write "Drawing diagrams... "
+
+  let
+    sdDir = "diagrams"
+    source = (srcDir/srcFile).readFile
+    sdBlocks = re("```seqdiag.*\n(.*\n)*```", {reMultiLine})
+
+  var newSource: string
+
+  createDir(srcDir/sdDir)
+
+  for sdNumber, sdBlock in source.findAll(sdBlocks).pairs():
+    let
+      sdSrcFileName = "$#.diag" % $sdNumber
+      sdContent = sdBlock.replace(re"```seqdiag.*").replace("```")
+      sdCaption = sdBlock.splitLines[0].replace("```seqdiag").strip
+      sdImgRef = "![$#]($#/$#.png)" % [sdCaption, sdDir, $sdNumber]
+      sdCommand = "seqdiag -a $#" % srcDir/sdDir/sdSrcFileName
+
+    (srcDir/sdDir/sdSrcFileName).writeFile(sdContent)
+
+    discard execShellCmd(sdCommand)
+
+    newSource = source.replace(sdBlock, sdImgRef)
+
+  (srcDir/srcFile).writeFile(newSource)
+
+  echo "Done!"
+
+proc collectSource(projectPath, targetDir, srcFile: string) =
   ##[
     Copy .md files, images, templates, and references from the project
     directory to a temporary directory.
@@ -18,7 +53,7 @@ proc collectSource*(projectPath, targetDir, srcFile: string) =
 
   for chapterName in contentsFile.loadToJson[0]["chapters"]:
     let chapterFile = projectPath/"sources"/chapterName.getStr & ".md"
-    combinedSource.write(open(chapterFile).readAll & "\n")
+    combinedSource.write(chapterFile.readFile & "\n")
 
   contentsFile.close()
   combinedSource.close()
@@ -51,6 +86,8 @@ proc build*(projectPath, targetFormat: string): string =
 
   collectSource(projectPath, tmpPath, srcFile)
 
+  processDiagrams(tmpPath, srcFile)
+
   case targetFormat[0].toLowerAscii
   of 'p':
     outputFile = outputTitle & ".pdf"
@@ -80,7 +117,7 @@ proc build*(projectPath, targetFormat: string): string =
     quit "Invalid target: $#" % $targetFormat
 
   stdout.write "Cleaning up... "
-  removeDir(tmpPath)
+  # removeDir(tmpPath)
   echo "Done!"
 
   return outputFile
