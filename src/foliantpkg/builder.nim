@@ -135,7 +135,7 @@ proc build*(projectPath, targetFormat: string): string =
     quit "Invalid target: $#" % $targetFormat
 
   stdout.write "Cleaning up... "
-  # removeDir(tmpPath)
+  removeDir(tmpPath)
 
   echo "Done!"
 
