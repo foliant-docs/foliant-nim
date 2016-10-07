@@ -1,6 +1,6 @@
 ## Document builder for foliant. Implements "build" subcommand.
 
-import os, osproc, strutils, json, yaml
+import os, osproc, strutils, json, yaml, httpclient
 import pandoc, gitutils
 import uploader
 
@@ -93,7 +93,7 @@ proc build*(projectPath, targetFormat: string): string =
 
   let
     cfg = json.parseFile(projectPath/"config.json")
-    outputTitle = getTitle(cfg["title"].getStr, getVersion())
+    outputTitle = getTitle(cfg["title"].getStr(), getVersion())
     tmpPath = "tmp"
     srcFile = "output.md"
 
@@ -135,7 +135,8 @@ proc build*(projectPath, targetFormat: string): string =
     quit "Invalid target: $#" % $targetFormat
 
   stdout.write "Cleaning up... "
-  removeDir(tmpPath)
+  # removeDir(tmpPath)
+
   echo "Done!"
 
   return outputFile
