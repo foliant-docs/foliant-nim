@@ -32,17 +32,25 @@ Usage
 
   $ foliant -h
 
-  Usage:
-    foliant (build | make) <target> [--path=<project-path>]
-    foliant (upload | up) <document> [--secret=<client_secret*.json>]
-    foliant (-h | --help)
-    foliant --version
+    Foliant: Markdown to PDF, Docx, and LaTeX generator powered by Pandoc.
 
-  Options:
-    -h --help                         Show this screen.
-    -v --version                      Show version.
-    -p --path=<project-path>          Path to your project [default: .].
-    -s --secret=<client_secret*.json> Path to Google app's client secret file.
+    Usage:
+      foliant (build | make) <target> [--path=<project-path>]
+      foliant (upload | up) <document> [--secret=<client_secret*.json>]
+      foliant (swagger2markdown | s2m) <swagger-location> [--output=<output-file>]
+        [--config=<config.properties>] [--no-download]
+      foliant (-h | --help)
+      foliant --version
+
+    Options:
+      -h --help                         Show this screen.
+      -v --version                      Show version.
+      -p --path=<project-path>          Path to your project [default: .].
+      -s --secret=<client_secret*.json> Path to Google app's client secret file.
+      -o --output=<output-file>         Path to the converted Markdown file.
+      -c --config=<config.properties>   Swagger2Markup config file.
+      -n --no-download                  Do not download swagger2markup.jar
+                                        (it must already be in PATH).
 
 
 ``build``, ``make``
@@ -76,6 +84,31 @@ Upload a Docx file to Google Drive as a Google document:
 .. code-block:: shell
 
   $ foliant up MyFile.docx
+
+
+``swagger2markdown``, ``s2m``
+=============================
+
+Convert a `Swagger JSON`_ file into Markdown using `Swagger2Markup CLI`_
+
+If ``--output`` is not specified, the output file is called ``swagger.md``.
+
+Specify ``--config`` to customize the output. Refer to the `Swagger2Markup
+docs on properties`_.
+
+If ``--no-download`` is specified, Swagger2Markup's JAR file won't
+be downloaded. It saves time, but in this case you must have downloaded
+the file yourself beforehand from https://jcenter.bintray.com/io/github/swagger2markup/swagger2markup-cli/1.0.1/.
+
+Example:
+
+.. code-block:: shell
+
+  $ foliant s2m http://example.com/api/swagger.json -c config.properties
+
+.. _Swagger JSON: http://swagger.io/specification/
+.. _Swagger2Markup: http://swagger2markup.github.io/swagger2markup/1.0.1/#_command_line_interface
+.. _Swagger2Markup docs on properties: http://swagger2markup.github.io/swagger2markup/1.0.1/#_swagger2markup_properties
 
 
 **************
@@ -217,7 +250,7 @@ To embed a diagram, put its definition in a fenced code block:
 
 .. code-block:: markdown
 
-  ```seqdiag Optional single-line caption.
+  ```seqdiag Optional single-line caption
   seqdiag {
   browser  -> webserver [label = "GET /index.html"];
   browser <-- webserver;

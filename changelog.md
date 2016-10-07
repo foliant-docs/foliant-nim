@@ -16,3 +16,12 @@ Initial release.
 # 0.1.4
 
 - Pandoc filters can be specified in config.json.
+
+# 0.1.7
+
+- In-place seqdiag diagram rendering added.
+
+# 0.1.8
+
+- Diagram rendering has become much faster.
+- Swagger to Markdown file converter added.
