@@ -26,7 +26,7 @@ Options:
                                     (it must already be in PATH).
 """
 
-let args = docopt(doc, version = "Foliant 0.1.7")
+let args = docopt(doc, version = "Foliant 0.1.8")
 
 if args["build"] or args["make"]:
   let
