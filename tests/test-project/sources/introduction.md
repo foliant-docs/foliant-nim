@@ -2,7 +2,7 @@
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultricies cursus nulla a feugiat. Donec non lorem et metus commodo faucibus. In a leo vitae urna fringilla congue sed nec diam. Vestibulum pellentesque volutpat orci, nec aliquet ante euismod quis. Quisque suscipit metus eget arcu consequat dictum. Mauris at est ornare, scelerisque erat id, pharetra ex. Duis et rhoncus ipsum. Morbi ac vulputate quam. Proin eget molestie magna. Nulla facilisi. Ut porttitor porttitor viverra. Maecenas nec auctor massa.
 
-```seqdiag This is a caption.
+```seqdiag This is a caption
 seqdiag {
   browser  -> webserver [label = "GET /index.html"];
   browser <-- webserver;

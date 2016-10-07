@@ -1,41 +1,59 @@
 ## Document builder for foliant. Implements "build" subcommand.
 
-import os, osproc, strutils, json, yaml, re
+import os, osproc, strutils, json, yaml
 import pandoc, gitutils
 import uploader
 
+proc processSeqDiagBlock(sdBlock: seq[string], sdNumber: int,
+                         srcDir, sdDir: string): string =
+  ## Extract diagram definition, convert it to image, and return the image ref.
+
+  let
+    sdSrcFileName = "$#.diag" % $sdNumber
+    sdContent = sdBlock[1..^2].join("\n")
+    sdCaption = sdBlock[0].replace("```seqdiag").strip()
+    sdImgRef = "![$#]($#/$#.png)" % [sdCaption, sdDir, $sdNumber]
+    sdCommand = "seqdiag -a $#" % srcDir/sdDir/sdSrcFileName
+
+  (srcDir/sdDir/sdSrcFileName).writeFile(sdContent)
+
+  discard execShellCmd(sdCommand)
+
+  return sdImgRef
+
 proc processDiagrams(srcDir, srcFile: string) =
   ##[
-    Find seqdiag code blocks, feed their content to seqdiag tool, and replace
-    them with image references.
+    Find seqdiag code blocks, feed their content to seqdiag tool,
+    and replace them with image references.
   ]##
 
   stdout.write "Drawing diagrams... "
 
-  let
-    sdDir = "diagrams"
-    source = (srcDir/srcFile).readFile
-    sdBlocks = re("```seqdiag.*\n(.*\n)*```", {reMultiLine})
+  const sdDir = "diagrams"
 
-  var newSource: string
+  var
+    buffer, newSource = newSeq[string]()
+    sdNumber: int
 
   createDir(srcDir/sdDir)
 
-  for sdNumber, sdBlock in source.findAll(sdBlocks).pairs():
-    let
-      sdSrcFileName = "$#.diag" % $sdNumber
-      sdContent = sdBlock.replace(re"```seqdiag.*").replace("```")
-      sdCaption = sdBlock.splitLines[0].replace("```seqdiag").strip
-      sdImgRef = "![$#]($#/$#.png)" % [sdCaption, sdDir, $sdNumber]
-      sdCommand = "seqdiag -a $#" % srcDir/sdDir/sdSrcFileName
+  for line in (srcDir/srcFile).lines:
+    if len(buffer) == 0:
+      if line.startsWith("```seqdiag"):
+        buffer.add line
 
-    (srcDir/sdDir/sdSrcFileName).writeFile(sdContent)
+      else:
+        newSource.add line
 
-    discard execShellCmd(sdCommand)
+    else:
+        buffer.add line
 
-    newSource = source.replace(sdBlock, sdImgRef)
+        if line == "```":
+          newSource.add processSeqDiagBlock(buffer, sdNumber, srcDir, sdDir)
+          inc sdNumber
+          buffer.setLen(0)
 
-  (srcDir/srcFile).writeFile(newSource)
+  (srcDir/srcFile).writeFile(newSource.join("\n"))
 
   echo "Done!"
 
@@ -117,7 +135,7 @@ proc build*(projectPath, targetFormat: string): string =
     quit "Invalid target: $#" % $targetFormat
 
   stdout.write "Cleaning up... "
-  # removeDir(tmpPath)
+  removeDir(tmpPath)
   echo "Done!"
 
   return outputFile
