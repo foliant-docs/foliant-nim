@@ -107,7 +107,7 @@ Example:
   $ foliant s2m http://example.com/api/swagger.json -c config.properties
 
 .. _Swagger JSON: http://swagger.io/specification/
-.. _Swagger2Markup: http://swagger2markup.github.io/swagger2markup/1.0.1/#_command_line_interface
+.. _Swagger2Markup CLI: http://swagger2markup.github.io/swagger2markup/1.0.1/#_command_line_interface
 .. _Swagger2Markup docs on properties: http://swagger2markup.github.io/swagger2markup/1.0.1/#_swagger2markup_properties
 
 
