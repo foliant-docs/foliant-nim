@@ -1,3 +1,5 @@
+## Swagger to Markdown converter.
+
 import os, osproc, httpclient, strutils
 
 proc convert*(swaggerLocation, outputFile, configFile: string,
