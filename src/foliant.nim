@@ -11,7 +11,7 @@ Usage:
   foliant (build | make) <target> [--path=<project-path>]
   foliant (upload | up) <document> [--secret=<client_secret*.json>]
   foliant (swagger2markdown | s2m) <swagger-location> [--output=<output-file>]
-    [--config=<config.properties>] [--no-download]
+    [--template=<jinja2-template>]
   foliant (-h | --help)
   foliant --version
 
@@ -20,10 +20,10 @@ Options:
   -v --version                      Show version.
   -p --path=<project-path>          Path to your project [default: .].
   -s --secret=<client_secret*.json> Path to Google app's client secret file.
-  -o --output=<output-file>         Path to the converted Markdown file.
-  -c --config=<config.properties>   Swagger2Markup config file.
-  -n --no-download                  Do not download swagger2markup.jar
-                                    (it must already be in PATH).
+  -o --output=<output-file>         Path to the converted Markdown file
+                                    [default: swagger.md]
+  -t --template=<jinja2-template>   Custom Jinja2 template for the Markdown
+                                    output.
 """
 
 let args = docopt(doc, version = "Foliant 0.1.8")
@@ -51,15 +51,12 @@ elif args["upload"] or args["up"]:
 elif args["swagger2markdown"] or args["s2m"]:
   let
     swaggerLocation = $args["<swagger-location>"]
-    outputFile =
-      if args["--output"].kind == vkNone: "swagger.md"
-      else: $args["--output"]
+    outputFile = $args["--output"]
     configFile =
-      if args["--config"].kind == vkNone: nil
-      else: $args["--config"]
-    noDownload = args["--no-download"]
+      if args["--template"].kind == vkNone: nil
+      else: $args["--template"]
 
-  swaggerLocation.convert(outputFile, configFile, noDownload)
+  swaggerLocation.convert(outputFile, configFile)
 
   echo "----"
   quit "Result: " & outputFile
