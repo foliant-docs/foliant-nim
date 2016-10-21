@@ -93,7 +93,8 @@ Upload a Docx file to Google Drive as a Google document:
 ``swagger2markdown``, ``s2m``
 =============================
 
-Convert a `Swagger JSON`_ file into Markdown using swagger2markdown_
+Convert a `Swagger JSON`_ file into Markdown using swagger2markdown_ (which
+must be installed with ``pip install swagger2markdown``).
 
 If ``--output`` is not specified, the output file is called ``swagger.md``.
 
