@@ -2,6 +2,10 @@
 Foliant
 #######
 
+.. image:: https://raw.githubusercontent.com/yglukhov/nimble-tag/master/nimble.png
+  :alt: Nimble
+  :target: https://github.com/yglukhov/nimble-tag
+
 **Foliant** is a documentation generator that builds PDF, Docx, and TeX
 documents from Markdown source.
 

@@ -1,8 +1,8 @@
 ## Document builder for foliant. Implements "build" subcommand.
 
-import os, osproc, strutils, json, yaml, httpclient
-import pandoc, gitutils
-import uploader, seqdiag
+import os, osproc, strutils, json, httpclient, streams
+import yaml
+import pandoc, gitutils, uploader, seqdiag
 
 proc collectSource(projectPath, targetDir, srcFile: string) =
   ##[
