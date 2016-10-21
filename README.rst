@@ -2,6 +2,10 @@
 Foliant
 #######
 
+.. image:: https://raw.githubusercontent.com/yglukhov/nimble-tag/master/nimble.png
+  :alt: Nimble
+  :target: https://github.com/yglukhov/nimble-tag
+
 **Foliant** is a documentation generator that builds PDF, Docx, and TeX
 documents from Markdown source.
 
@@ -263,6 +267,22 @@ To embed a diagram, put its definition in a fenced code block:
 
 This is transformed into ``![Optional single-line caption. (diagrams/0.png)``,
 where ``diagrams/0.png`` is an image generated from the diagram definition.
+
+
+Customizing Diagrams
+====================
+
+To use a custom font, create the file ``$HOME/.blockdiagrc`` and define
+the full path to the font (`ref <http://blockdiag.com/en/blockdiag/introduction.html#font-configuration>`__):
+
+.. code-block:: shell
+
+  $ cat $HOME/.blockdiagrc
+  [blockdiag]
+  fontpath = /usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif.ttf
+
+You can define `other params <http://blockdiag.com/en/seqdiag/sphinxcontrib.html#configuration-file-options>`__
+as well (remove ``seqdiag_`` from the beginning of the param name).
 
 
 ***************

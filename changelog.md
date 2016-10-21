@@ -25,3 +25,9 @@ Initial release.
 
 - Diagram rendering has become much faster.
 - Swagger to Markdown file converter added.
+
+# 0.1.9
+
+- Swagger to Markdown converter now uses
+[swagger2markdown](https://github.com/moigagoo/swagger2markdown) instead of
+[swagger2markup](https://github.com/Swagger2Markup/swagger2markup).
