@@ -93,27 +93,23 @@ Upload a Docx file to Google Drive as a Google document:
 ``swagger2markdown``, ``s2m``
 =============================
 
-Convert a `Swagger JSON`_ file into Markdown using `Swagger2Markup CLI`_
+Convert a `Swagger JSON`_ file into Markdown using swagger2markdown_
 
 If ``--output`` is not specified, the output file is called ``swagger.md``.
 
-Specify ``--config`` to customize the output. Refer to the `Swagger2Markup
-docs on properties`_.
-
-If ``--no-download`` is specified, Swagger2Markup's JAR file won't
-be downloaded. It saves time, but in this case you must have downloaded
-the file yourself beforehand from https://jcenter.bintray.com/io/github/swagger2markup/swagger2markup-cli/1.0.1/.
+Specify ``--template`` to provide a custom Jinja2_ template to customize
+the output. Use the `default template`_ as a reference.
 
 Example:
 
 .. code-block:: shell
 
-  $ foliant s2m http://example.com/api/swagger.json -c config.properties
+  $ foliant s2m http://example.com/api/swagger.json -t templates/swagger.md.j2
 
 .. _Swagger JSON: http://swagger.io/specification/
-.. _Swagger2Markup CLI: http://swagger2markup.github.io/swagger2markup/1.0.1/#_command_line_interface
-.. _Swagger2Markup docs on properties: http://swagger2markup.github.io/swagger2markup/1.0.1/#_swagger2markup_properties
-
+.. _swagger2markdown: https://github.com/moigagoo/swagger2markdown
+.. _Jinja2: http://jinja.pocoo.org/
+.. _default template: https://github.com/moigagoo/swagger2markdown/blob/master/swagger.md.j2
 
 **************
 Project Layout
