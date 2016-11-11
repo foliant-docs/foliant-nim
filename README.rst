@@ -35,26 +35,25 @@ Usage
 .. code-block:: shell
 
   $ foliant -h
+  Foliant: Markdown to PDF, Docx, and LaTeX generator powered by Pandoc.
 
-    Foliant: Markdown to PDF, Docx, and LaTeX generator powered by Pandoc.
+  Usage:
+    foliant (build | make) <target> [--path=<project-path>]
+    foliant (upload | up) <document> [--secret=<client_secret*.json>]
+    foliant (swagger2markdown | s2m) <swagger-location> [--output=<output-file>]
+      [--template=<jinja2-template>]
+    foliant (-h | --help)
+    foliant --version
 
-    Usage:
-      foliant (build | make) <target> [--path=<project-path>]
-      foliant (upload | up) <document> [--secret=<client_secret*.json>]
-      foliant (swagger2markdown | s2m) <swagger-location> [--output=<output-file>]
-        [--config=<config.properties>] [--no-download]
-      foliant (-h | --help)
-      foliant --version
-
-    Options:
-      -h --help                         Show this screen.
-      -v --version                      Show version.
-      -p --path=<project-path>          Path to your project [default: .].
-      -s --secret=<client_secret*.json> Path to Google app's client secret file.
-      -o --output=<output-file>         Path to the converted Markdown file.
-      -c --config=<config.properties>   Swagger2Markup config file.
-      -n --no-download                  Do not download swagger2markup.jar
-                                        (it must already be in PATH).
+  Options:
+    -h --help                         Show this screen.
+    -v --version                      Show version.
+    -p --path=<project-path>          Path to your project [default: .].
+    -s --secret=<client_secret*.json> Path to Google app's client secret file.
+    -o --output=<output-file>         Path to the converted Markdown file
+                                      [default: swagger.md]
+    -t --template=<jinja2-template>   Custom Jinja2 template for the Markdown
+                                      output.
 
 
 ``build``, ``make``
