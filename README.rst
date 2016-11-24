@@ -146,7 +146,7 @@ Config file, mostly for Pandoc.
 
   {
     "title": "Lorem ipsum",           // Document title.
-    "file_name": "Dolor sit amet",    // Output file name. If not set, slugified
+    "file_name": "Dolor_sit_amet",    // Output file name. If not set, slugified
                                       // `title` is used.
     "second_title": "Dolor sit amet", // Document subtitle.
     "lang": "english",                // Document language, "russian" or "english."
