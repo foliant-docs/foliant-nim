@@ -15,6 +15,8 @@ proc getVersion*(): string =
 
   if gitDescribeExitCode == 0:
     components.add gitDescribeOutput.strip
+  else:
+    components.add "0"
 
   if gitRevListExitCode == 0:
     components.add gitRevListOutput.strip
