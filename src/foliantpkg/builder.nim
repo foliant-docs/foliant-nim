@@ -30,8 +30,10 @@ proc collectSource(projectPath, targetDir, srcFile: string) =
   echo "Done!"
 
 proc getVersion(cfg: JsonNode): string =
-  ## Extract version from config or generate it from git tag and revcount.
-  ## Append current date.
+  ##[
+    Extract version from config or generate it from git tag and revcount.
+    Append current date.
+  ]##
 
   let cfgVersion = cfg["version"].getStr()
 
