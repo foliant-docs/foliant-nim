@@ -42,7 +42,11 @@ proc getVersion(cfg: JsonNode): string =
 proc getTitle(cfg: JsonNode): string =
   ## Generate file name from config: slugify the title and add version.
 
-  cfg["title"].getStr().replace(' ', '_') & "_" & getVersion(cfg)
+  result =
+    if cfg.hasKey("file_name"): cfg["file_name"].getStr()
+    else: cfg["title"].getStr().replace(' ', '_')
+
+  result &= "_" & getVersion(cfg)
 
 proc build*(projectPath, targetFormat: string): string =
   ## Convert source Markdown to the target format using Pandoc.
