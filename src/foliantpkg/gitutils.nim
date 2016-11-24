@@ -1,4 +1,7 @@
-## Wrapper around a few git commands. Used by builder to determin document version.
+##[
+  Wrapper around a few git commands. Used by builder to determin document
+  version.
+]##
 
 import osproc, strutils
 

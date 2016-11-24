@@ -1,4 +1,4 @@
-# Wrapper around Pandoc. Used by builder.
+## Wrapper around Pandoc. Used by builder.
 
 import os, osproc, strutils, json
 import gitutils
