@@ -29,5 +29,12 @@ Initial release.
 # 0.1.9
 
 - Swagger to Markdown converter now uses
-[swagger2markdown](https://github.com/moigagoo/swagger2markdown) instead of
-[swagger2markup](https://github.com/Swagger2Markup/swagger2markup).
+  [swagger2markdown](https://github.com/moigagoo/swagger2markdown) instead of
+  [swagger2markup](https://github.com/Swagger2Markup/swagger2markup).
+
+# 0.2.0
+
+- Output file is now named according to the following format:
+  `<title>_<version>-<date>`.
+- You can now specify the output file name explicitly with `file_name` value
+  in `config.json`. If it's not set, the slugified `title` value is used.

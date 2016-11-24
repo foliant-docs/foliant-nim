@@ -1,6 +1,6 @@
 ## Document builder for foliant. Implements "build" subcommand.
 
-import os, osproc, strutils, json, httpclient, streams
+import os, osproc, strutils, json, httpclient, streams, times
 import yaml
 import pandoc, gitutils, uploader, seqdiag
 
@@ -29,18 +29,31 @@ proc collectSource(projectPath, targetDir, srcFile: string) =
 
   echo "Done!"
 
-proc getTitle(docTitle, docVersion: string): string =
-  ## Generate file name by slugifying the document title and adding its version.
+proc getVersion(cfg: JsonNode): string =
+  let cfgVersion = cfg["version"].getStr()
 
-  if not docVersion.isNil: docTitle.replace(' ', '_') & "." & docVersion
-  else: docTitle.replace(' ', '_')
+  result =
+    if cfgVersion == "auto": gitutils.getVersion()
+    else: cfgVersion
+
+  if cfg["date"].getStr() == "true":
+    result &= "-" & getTime().getLocalTime().format("dd-MM-yyyy")
+
+proc getTitle(cfg: JsonNode): string =
+  ## Generate file name from config: slugify the title and add version.
+
+  result =
+    if cfg.hasKey("file_name"): cfg["file_name"].getStr()
+    else: cfg["title"].getStr().replace(' ', '_')
+
+  result &= "_" & getVersion(cfg)
 
 proc build*(projectPath, targetFormat: string): string =
   ## Convert source Markdown to the target format using Pandoc.
 
   let
     cfg = json.parseFile(projectPath/"config.json")
-    outputTitle = getTitle(cfg["title"].getStr(), getVersion())
+    outputTitle = getTitle(cfg)
     tmpPath = "tmp"
     srcFile = "output.md"
 
