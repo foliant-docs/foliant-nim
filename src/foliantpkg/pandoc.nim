@@ -56,6 +56,9 @@ proc generatePandocCommand(params, outputFile, srcFile: string,
       for filter in value.getElems():
         params.add "-F " & filter.getStr()
 
+    of "file_name":
+      discard
+
     else:
       echo "Unsupported config key: $#" % key
 

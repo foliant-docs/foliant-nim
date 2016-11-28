@@ -38,3 +38,7 @@ Initial release.
   `<title>_<version>-<date>`.
 - You can now specify the output file name explicitly with `file_name` value
   in `config.json`. If it's not set, the slugified `title` value is used.
+
+# 0.2.1
+
+- Fix false warning about "file_name" config value.
