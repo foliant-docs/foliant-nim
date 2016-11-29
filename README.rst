@@ -296,3 +296,10 @@ Make the file executable:
 .. code-block:: shell
 
   $ chmod +x foliant
+
+
+LaTeX Error: File `xetex.def' not found.
+========================================
+
+Install graphics.def with MikTeX Package Manager (normally invoked with ``mpm``
+command).
