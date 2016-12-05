@@ -42,3 +42,10 @@ Initial release.
 # 0.2.1
 
 - Fix false warning about "file_name" config value.
+
+# 0.2.2
+
+- Add Apidoc to Markdown converter
+(via [apidoc2markdown](https://github.com/moigagoo/apidoc2markdown)).
+- Markdown file converted from Swagger or Apidoc is now called `api.md`
+  (instead of `swagger.md`).

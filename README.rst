@@ -42,6 +42,8 @@ Usage
     foliant (upload | up) <document> [--secret=<client_secret*.json>]
     foliant (swagger2markdown | s2m) <swagger-location> [--output=<output-file>]
       [--template=<jinja2-template>]
+    foliant (apidoc2markdown | a2m) <apidoc-location> [--output=<output-file>]
+      [--template=<jinja2-template>]
     foliant (-h | --help)
     foliant --version
 
@@ -51,10 +53,9 @@ Usage
     -p --path=<project-path>          Path to your project [default: .].
     -s --secret=<client_secret*.json> Path to Google app's client secret file.
     -o --output=<output-file>         Path to the converted Markdown file
-                                      [default: swagger.md]
+                                      [default: api.md]
     -t --template=<jinja2-template>   Custom Jinja2 template for the Markdown
                                       output.
-
 
 ``build``, ``make``
 ===================
@@ -95,7 +96,7 @@ Upload a Docx file to Google Drive as a Google document:
 Convert a `Swagger JSON`_ file into Markdown using swagger2markdown_ (which
 must be installed with ``pip install swagger2markdown``).
 
-If ``--output`` is not specified, the output file is called ``swagger.md``.
+If ``--output`` is not specified, the output file is called ``api.md``.
 
 Specify ``--template`` to provide a custom Jinja2_ template to customize
 the output. Use the `default template`_ as a reference.
@@ -110,6 +111,30 @@ Example:
 .. _swagger2markdown: https://github.com/moigagoo/swagger2markdown
 .. _Jinja2: http://jinja.pocoo.org/
 .. _default template: https://github.com/moigagoo/swagger2markdown/blob/master/swagger.md.j2
+
+
+``apidoc2markdown``, ``a2m``
+=============================
+
+Convert Apidoc_ files into Markdown using apidoc2markdown_ (which
+must be installed with ``pip install apidoc2markdown``).
+
+If ``--output`` is not specified, the output file is called ``api.md``.
+
+Specify ``--template`` to provide a custom Jinja2_ template to customize
+the output. Use the `default template`_ as a reference.
+
+Example:
+
+.. code-block:: shell
+
+  $ foliant a2m /path/to/api_data.json -t templates/apidoc.md.j2
+
+.. _Apidoc: http://apidocjs.com/
+.. _apidoc2markdown: https://github.com/moigagoo/apidoc2markdown
+.. _Jinja2: http://jinja.pocoo.org/
+.. _default template: https://github.com/moigagoo/apidoc2markdown/blob/master/apidoc.md.j2
+
 
 **************
 Project Layout
