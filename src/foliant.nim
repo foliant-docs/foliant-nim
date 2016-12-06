@@ -29,7 +29,7 @@ Options:
                                     output.
 """
 
-let args = docopt(doc, version = "Foliant 0.2.2")
+let args = docopt(doc, version = "Foliant 0.2.2 (Nim)")
 
 if args["build"] or args["make"]:
   let
